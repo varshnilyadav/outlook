@@ -20,8 +20,10 @@ export const MOCK_EMAILS: Email[] = [
     senderEmail: 'pavan.kumar@woxsen.edu.in',
     subject: 'Outing permission',
     preview: 'Respected Sir, I kindly request you to grant me...',
-    body: `Harshavardhan Singh Nonwar (B...
-To Pavan Kumar Sirasani
+    body: `Harshavardhan Singh Nonwar (B.Tech_2028)
+harshavardhansingh.nonwar_2028@woxsen.edu.in
+To Pavan Kumar Sirasani pavan.sirasani@woxsen.edu.in
+Tuesday, 1 September at 10:50 am
 
 Dear Sir,
 
@@ -36,11 +38,15 @@ Get Outlook for Android
 
 --------------------------------------------------
 
+Pavan Kumar Sirasani
+To You
+Tuesday, 1 September at 11:14 am
+
 With reference to your outing request, we have confirmed your requirement with your mother over a phone call. Based on her acceptance and confirmation, your outing request is approved.
 
 You are requested to return to the campus within the permitted time and follow the campus guidelines.`,
-    time: '24 Aug',
-    dateGroup: 'Earlier',
+    time: '11:14 AM',
+    dateGroup: 'Today',
     isUnread: false,
     avatarColor: 'bg-gray-700',
     avatarInitials: 'PS',
