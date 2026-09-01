@@ -10,6 +10,7 @@ import { FilterPanel } from './components/FilterPanel';
 import { Calendar } from './components/Calendar';
 import { Apps } from './components/Apps';
 import { SignIn } from './components/SignIn';
+import { Sidebar } from './components/Sidebar';
 import { useMailStore } from './store/useMailStore';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 
         {currentView === 'inbox' && (
           <div className="flex-1 flex flex-col h-full relative">
+            <Sidebar />
             <Header />
             <InboxTabs />
             <EmailList />

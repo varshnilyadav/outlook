@@ -14,6 +14,7 @@ interface MailStore {
   isSearchOpen: boolean;
   isComposeOpen: boolean;
   isFilterOpen: boolean;
+  isSidebarOpen: boolean;
   isAuthenticated: boolean;
   
   // Actions
@@ -27,6 +28,7 @@ interface MailStore {
   setSearchOpen: (isOpen: boolean) => void;
   setComposeOpen: (isOpen: boolean) => void;
   setFilterOpen: (isOpen: boolean) => void;
+  setSidebarOpen: (isOpen: boolean) => void;
   addEmail: (email: Omit<Email, 'id'>) => void;
 }
 
@@ -39,6 +41,7 @@ export const useMailStore = create<MailStore>((set) => ({
   isSearchOpen: false,
   isComposeOpen: false,
   isFilterOpen: false,
+  isSidebarOpen: false,
   isAuthenticated: false,
   
   login: () => set({ isAuthenticated: true, currentView: 'inbox' }),
@@ -53,6 +56,7 @@ export const useMailStore = create<MailStore>((set) => ({
   setSearchOpen: (isOpen) => set({ isSearchOpen: isOpen, searchQuery: isOpen ? '' : '' }),
   setComposeOpen: (isOpen) => set({ isComposeOpen: isOpen }),
   setFilterOpen: (isOpen) => set({ isFilterOpen: isOpen }),
+  setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
   addEmail: (email) => set((state) => ({
     emails: [{ ...email, id: Date.now().toString() }, ...state.emails]
   })),

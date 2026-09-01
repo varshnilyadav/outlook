@@ -3,15 +3,18 @@ import { Bell, Search } from 'lucide-react';
 import { useMailStore } from '../store/useMailStore';
 
 export const Header: React.FC = () => {
-  const setSearchOpen = useMailStore(state => state.setSearchOpen);
+  const { setSearchOpen, setSidebarOpen } = useMailStore();
 
   return (
     <header className="bg-[#1478C9] text-white px-4 pt-4 pb-3 flex items-center justify-between shadow-sm z-10 relative">
       <div className="flex items-center gap-4">
         {/* Avatar */}
-        <div className="w-9 h-9 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-lg shadow-sm border border-white/20">
+        <button 
+          onClick={() => setSidebarOpen(true)}
+          className="w-9 h-9 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-lg shadow-sm border border-white/20 active:scale-95 transition-transform"
+        >
           V
-        </div>
+        </button>
         {/* App Title */}
         <h1 className="text-[28px] font-bold tracking-tight">Inbox</h1>
       </div>
