@@ -20,6 +20,15 @@ export const EmailDetail: React.FC = () => {
 
   // Check if it's a threaded mock email
   const isThreaded = email.body.includes('--------------------------------------------------');
+  const [expandedHeaders, setExpandedHeaders] = React.useState<number[]>([]);
+
+  const toggleHeader = (idx: number) => {
+    if (expandedHeaders.includes(idx)) {
+      setExpandedHeaders(expandedHeaders.filter(i => i !== idx));
+    } else {
+      setExpandedHeaders([...expandedHeaders, idx]);
+    }
+  };
 
   if (isThreaded) {
     const rawBlocks = email.body.split('--------------------------------------------------').map(b => b.trim());
@@ -77,7 +86,10 @@ export const EmailDetail: React.FC = () => {
         {/* Content */}
         <div className="flex-1 overflow-y-auto no-scrollbar pb-[140px] bg-[#121212]">
           
-          {threadBlocks.map((msg, idx) => (
+          {threadBlocks.map((msg, idx) => {
+            const isExpanded = expandedHeaders.includes(idx);
+            
+            return (
             <React.Fragment key={idx}>
               {idx > 0 && (
                 <div className="flex items-center px-4 py-2 bg-[#1c1c1c] text-[#a0a0a0] text-sm border-y border-gray-800 mt-2 mb-2">
@@ -87,40 +99,85 @@ export const EmailDetail: React.FC = () => {
               )}
               
               <div className="px-5 py-4">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="flex gap-3">
-                    <div className={clsx(
-                      "w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg",
-                      idx === 0 ? "bg-[#3399FF] text-black" : "bg-gray-800 text-white"
-                    )}>
-                      {idx === 0 && <span className="absolute w-11 h-11 rounded-full border border-gray-700 opacity-20"></span>}
-                      {getInitials(msg.name)}
-                    </div>
-                    <div>
-                      <div className="text-[16px] font-medium text-[#3399FF]">
-                        {msg.name}
-                      </div>
-                      {msg.emailAddress && (
-                        <div className="text-[14px] text-[#a0a0a0]">
-                          {msg.emailAddress}
+                {/* Header Area */}
+                <div 
+                  className="flex justify-between items-start mb-4 cursor-pointer"
+                  onClick={() => toggleHeader(idx)}
+                >
+                  {!isExpanded ? (
+                    // Collapsed View
+                    <div className="flex gap-3 w-full justify-between items-center">
+                      <div className="flex gap-3 items-center">
+                        <div className={clsx(
+                          "w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg shrink-0",
+                          idx === 0 ? "bg-[#3399FF] text-black" : "bg-gray-800 text-white"
+                        )}>
+                          {idx === 0 && <span className="absolute w-11 h-11 rounded-full border border-gray-700 opacity-20"></span>}
+                          {getInitials(msg.name)}
                         </div>
-                      )}
-                      <div className="text-[14px] text-[#a0a0a0] mt-1">
-                        <span className="text-white">To </span> {msg.toLine.replace(/^To\s+/, '')}
+                        <div>
+                          <div className="text-[16px] font-medium text-white">
+                            {msg.name}
+                          </div>
+                          <div className="text-[14px] text-[#a0a0a0] flex items-center gap-1 mt-0.5">
+                            {msg.toLine.replace(/^To\s+/, 'To: ')} <ChevronDown size={14} className="mt-0.5" />
+                          </div>
+                        </div>
                       </div>
-                      <div className="text-[14px] text-[#a0a0a0]">
-                        {msg.dateLine}
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="text-[13px] text-[#a0a0a0]">
+                           {msg.dateLine.split(' at ')[0] || msg.dateLine}
+                        </div>
+                        <button className="text-[#a0a0a0] p-1 -mr-2">
+                          <MoreVertical size={20} />
+                        </button>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col items-end gap-3">
-                    <button className="text-[#a0a0a0]">
-                      <MoreVertical size={20} />
-                    </button>
-                    <div className="p-1.5 bg-[#2a2a2a] rounded-full text-[#a0a0a0] mt-2">
-                      <Smile size={16} />
+                  ) : (
+                    // Expanded View
+                    <div className="flex gap-3 w-full">
+                      <div className={clsx(
+                        "w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg shrink-0 mt-1",
+                        idx === 0 ? "bg-[#3399FF] text-black" : "bg-gray-800 text-white"
+                      )}>
+                        {idx === 0 && <span className="absolute w-11 h-11 rounded-full border border-gray-700 opacity-20"></span>}
+                        {getInitials(msg.name)}
+                      </div>
+                      <div className="flex-1 relative">
+                        <div className="flex justify-between items-start">
+                          <div className="text-[16px] font-medium text-[#3399FF] pr-8">
+                            {msg.name}
+                          </div>
+                          <button className="text-[#a0a0a0] p-1 absolute top-[-4px] right-[-8px]">
+                            <MoreVertical size={20} />
+                          </button>
+                        </div>
+                        
+                        {msg.emailAddress && (
+                          <div className="text-[14px] text-[#a0a0a0] mb-2">
+                            {msg.emailAddress}
+                          </div>
+                        )}
+                        
+                        <div className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 mb-2 text-[14px]">
+                          <div className="text-white">To</div>
+                          <div className="text-[#a0a0a0]">
+                            {msg.toLine.replace(/^To\s+/, '')}
+                          </div>
+                        </div>
+
+                        <div className="text-[14px] text-[#a0a0a0]">
+                          {msg.dateLine}
+                        </div>
+                        
+                        {idx === 0 && (
+                           <div className="absolute -bottom-1 -right-2 p-1.5 bg-[#2a2a2a] rounded-full text-[#a0a0a0]">
+                             <Smile size={16} />
+                           </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 <div className="text-[16px] text-white leading-relaxed whitespace-pre-wrap mt-2">
@@ -128,7 +185,8 @@ export const EmailDetail: React.FC = () => {
                 </div>
               </div>
             </React.Fragment>
-          ))}
+            );
+          })}
           
           <div className="px-5 py-4 text-[#a0a0a0] flex items-center gap-2 mt-4">
              <div className="w-1.5 h-1.5 rounded-full bg-[#a0a0a0]"></div>
