@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { MOCK_EMAILS } from '../data/mockEmails';
 import type { Email } from '../data/mockEmails';
 
-type ViewState = 'inbox' | 'email-detail' | 'calendar' | 'apps';
+type ViewState = 'sign-in' | 'inbox' | 'email-detail' | 'calendar' | 'apps';
 type TabState = 'Focused' | 'Other';
 
 interface MailStore {
@@ -14,8 +14,11 @@ interface MailStore {
   isSearchOpen: boolean;
   isComposeOpen: boolean;
   isFilterOpen: boolean;
+  isAuthenticated: boolean;
   
   // Actions
+  login: () => void;
+  logout: () => void;
   setCurrentView: (view: ViewState) => void;
   setActiveTab: (tab: TabState) => void;
   selectEmail: (id: string | null) => void;
@@ -29,14 +32,17 @@ interface MailStore {
 
 export const useMailStore = create<MailStore>((set) => ({
   emails: MOCK_EMAILS,
-  currentView: 'inbox',
+  currentView: 'sign-in',
   activeTab: 'Focused',
   selectedEmailId: null,
   searchQuery: '',
   isSearchOpen: false,
   isComposeOpen: false,
   isFilterOpen: false,
+  isAuthenticated: false,
   
+  login: () => set({ isAuthenticated: true, currentView: 'inbox' }),
+  logout: () => set({ isAuthenticated: false, currentView: 'sign-in' }),
   setCurrentView: (view) => set({ currentView: view }),
   setActiveTab: (tab) => set({ activeTab: tab }),
   selectEmail: (id) => set({ selectedEmailId: id, currentView: id ? 'email-detail' : 'inbox' }),

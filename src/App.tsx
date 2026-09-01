@@ -9,6 +9,7 @@ import { SearchView } from './components/SearchView';
 import { FilterPanel } from './components/FilterPanel';
 import { Calendar } from './components/Calendar';
 import { Apps } from './components/Apps';
+import { SignIn } from './components/SignIn';
 import { useMailStore } from './store/useMailStore';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
       {/* Mobile App Container */}
       <div className="w-full sm:max-w-[430px] bg-white h-[100dvh] sm:h-screen sm:shadow-2xl relative flex flex-col overflow-hidden sm:my-0">
         
+        {currentView === 'sign-in' && <SignIn />}
+
         {currentView === 'inbox' && (
           <div className="flex-1 flex flex-col h-full relative">
             <Header />
@@ -34,12 +37,15 @@ function App() {
 
         {/* Overlays */}
         {currentView === 'email-detail' && <EmailDetail />}
-        <SearchView />
-        <FilterPanel />
-        <ComposeEmail />
-
-        {/* Global Navigation */}
-        <BottomNavigation />
+        {currentView !== 'sign-in' && (
+          <>
+            <SearchView />
+            <FilterPanel />
+            <ComposeEmail />
+            {/* Global Navigation */}
+            <BottomNavigation />
+          </>
+        )}
         
       </div>
     </div>
