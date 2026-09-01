@@ -42,8 +42,8 @@ export const EmailRow: React.FC<EmailRowProps> = ({ email }) => {
         <div className="flex justify-between items-baseline mb-0.5">
           <span
             className={clsx(
-              'text-[18px] truncate pr-2',
-              email.isUnread ? 'font-bold text-[#202124]' : 'font-semibold text-[#202124]'
+              'text-[17px] truncate pr-2',
+              email.isUnread ? 'font-bold text-[#202124]' : 'font-medium text-[#202124]'
             )}
           >
             {email.senderName}
@@ -61,8 +61,8 @@ export const EmailRow: React.FC<EmailRowProps> = ({ email }) => {
         <div className="flex justify-between items-center mb-0.5">
           <span
             className={clsx(
-              'text-[16px] truncate pr-2',
-              email.isUnread ? 'font-semibold text-[#202124]' : 'text-[#202124]'
+              'text-[15px] truncate pr-2',
+              email.isUnread ? 'font-bold text-[#202124]' : 'font-normal text-[#202124]'
             )}
           >
             {email.subject}
