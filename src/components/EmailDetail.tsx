@@ -108,13 +108,17 @@ export const EmailDetail: React.FC = () => {
                     // Collapsed View
                     <div className="flex gap-3 w-full justify-between items-center">
                       <div className="flex gap-3 items-center">
-                        <div className={clsx(
-                          "w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg shrink-0",
-                          idx === 0 ? "bg-[#3399FF] text-black" : "bg-gray-800 text-white"
-                        )}>
-                          {idx === 0 && <span className="absolute w-11 h-11 rounded-full border border-gray-700 opacity-20"></span>}
-                          {getInitials(msg.name)}
-                        </div>
+                        {msg.name === email.senderName && email.avatarUrl ? (
+                           <img src={email.avatarUrl} alt={msg.name} className="w-11 h-11 rounded-full object-cover shrink-0" />
+                        ) : (
+                          <div className={clsx(
+                            "w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg shrink-0",
+                            idx === 0 ? "bg-[#3399FF] text-black" : "bg-gray-800 text-white"
+                          )}>
+                            {idx === 0 && <span className="absolute w-11 h-11 rounded-full border border-gray-700 opacity-20"></span>}
+                            {getInitials(msg.name)}
+                          </div>
+                        )}
                         <div>
                           <div className="text-[16px] font-medium text-white">
                             {msg.name}
@@ -136,13 +140,17 @@ export const EmailDetail: React.FC = () => {
                   ) : (
                     // Expanded View
                     <div className="flex gap-3 w-full">
-                      <div className={clsx(
-                        "w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg shrink-0 mt-1",
-                        idx === 0 ? "bg-[#3399FF] text-black" : "bg-gray-800 text-white"
-                      )}>
-                        {idx === 0 && <span className="absolute w-11 h-11 rounded-full border border-gray-700 opacity-20"></span>}
-                        {getInitials(msg.name)}
-                      </div>
+                      {msg.name === email.senderName && email.avatarUrl ? (
+                           <img src={email.avatarUrl} alt={msg.name} className="w-11 h-11 rounded-full object-cover shrink-0 mt-1" />
+                      ) : (
+                        <div className={clsx(
+                          "w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg shrink-0 mt-1",
+                          idx === 0 ? "bg-[#3399FF] text-black" : "bg-gray-800 text-white"
+                        )}>
+                          {idx === 0 && <span className="absolute w-11 h-11 rounded-full border border-gray-700 opacity-20"></span>}
+                          {getInitials(msg.name)}
+                        </div>
+                      )}
                       <div className="flex-1 relative">
                         <div className="flex justify-between items-start">
                           <div className="text-[16px] font-medium text-[#3399FF] pr-8">
@@ -249,9 +257,13 @@ export const EmailDetail: React.FC = () => {
         <div className="px-5 py-4 border-b border-[#E8E8E8]">
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-3">
-              <div className={clsx("w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg text-white", email.avatarColor)}>
-                {email.avatarInitials}
-              </div>
+              {email.avatarUrl ? (
+                <img src={email.avatarUrl} alt={email.senderName} className="w-11 h-11 rounded-full object-cover shrink-0" />
+              ) : (
+                <div className={clsx("w-11 h-11 rounded-full flex items-center justify-center font-medium text-lg text-white", email.avatarColor)}>
+                  {email.avatarInitials}
+                </div>
+              )}
               <div>
                 <div className="text-[16px] font-bold text-[#202124]">
                   {email.senderName}

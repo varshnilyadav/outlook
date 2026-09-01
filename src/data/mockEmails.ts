@@ -10,6 +10,7 @@ export type Email = {
   isUnread: boolean;
   avatarColor: string;
   avatarInitials?: string;
+  avatarUrl?: string;
   isFocused: boolean;
 };
 
@@ -50,6 +51,7 @@ You are requested to return to the campus within the permitted time and follow t
     isUnread: false,
     avatarColor: 'bg-gray-700',
     avatarInitials: 'PS',
+    avatarUrl: '/pavan.png',
     isFocused: true,
   },
   {

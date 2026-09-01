@@ -34,8 +34,8 @@ export const EmailRow: React.FC<EmailRowProps> = ({ email }) => {
         )}
       </div>
 
-      <div className="pt-1 ml-1">
-        <Avatar colorClass={email.avatarColor} initials={email.avatarInitials} size="md" />
+      <div className="pt-1 ml-1 mr-3 shrink-0">
+        <Avatar colorClass={email.avatarColor} initials={email.avatarInitials} imageUrl={email.avatarUrl} size="md" />
       </div>
 
       <div className="flex-1 min-w-0 border-b border-[#E8E8E8] pb-3">
