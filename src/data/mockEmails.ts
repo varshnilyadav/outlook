@@ -15,6 +15,38 @@ export type Email = {
 
 export const MOCK_EMAILS: Email[] = [
   {
+    id: '7',
+    senderName: 'Pavan Kumar Sirasani',
+    senderEmail: 'pavan.kumar@woxsen.edu.in',
+    subject: 'Outing permission',
+    preview: 'Respected Sir, I kindly request you to grant me...',
+    body: `Harshavardhan Singh Nonwar (B...
+To Pavan Kumar Sirasani
+
+Dear Sir,
+
+I kindly request you to grant me permission to go out of the campus for a short while due to a personal requirement. I will return to the campus on time and follow all the necessary rules.
+
+Thank you for your consideration.
+
+Regards,
+Harshavardhan Singh
+
+Get Outlook for Android
+
+--------------------------------------------------
+
+With reference to your outing request, we have confirmed your requirement with your mother over a phone call. Based on her acceptance and confirmation, your outing request is approved.
+
+You are requested to return to the campus within the permitted time and follow the campus guidelines.`,
+    time: '24 Aug',
+    dateGroup: 'Earlier',
+    isUnread: false,
+    avatarColor: 'bg-gray-700',
+    avatarInitials: 'PS',
+    isFocused: true,
+  },
+  {
     id: '1',
     senderName: 'Woxsen Japan Centre',
     senderEmail: 'japan.centre@university.edu',
